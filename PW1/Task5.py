@@ -1,4 +1,4 @@
-
+#
 #region IMPORTS
 import random as rnd
 #endregion IMPORTS
@@ -20,10 +20,10 @@ def genDict(nameDict:str = "") -> dict:
 
 
 def _main_() -> None:
-    nDict_1 = genDict("Первый")
+    nDict_1 = genDict("'Первый'")
     print(nDict_1)
-    a = [(item, [i[0] for i in sorted(list(nDict_1.items()), key=(lambda x: x[1])) if i[1]==item]) for item in set(nDict_1.values())]
-    print(a)
+    nDict_2 = genDict("'Второй'")
+    print(nDict_2)   
     
     
 
