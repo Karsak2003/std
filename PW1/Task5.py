@@ -23,7 +23,12 @@ def _main_() -> None:
     nDict_1 = genDict("'Первый'")
     print(nDict_1)
     nDict_2 = genDict("'Второй'")
-    print(nDict_2)   
+    print(nDict_2)
+    items = (lambda a, b:a-(a-b))(set(nDict_1.values()), set(nDict_2.values()))
+    
+
+    
+    
     
     
 
