@@ -1,7 +1,7 @@
 
 #region IMPORTS
 import random
-import res
+from res import BullsCows
 #endregion IMPORTS
 
 
@@ -9,14 +9,14 @@ import res
 
 def main() -> None:
     numbers = [random.randint(1, 10)] + random.sample(range(0, 10), 3)
-    print("\n".join(res.openName))
+    print("\n".join(BullsCows.openName))
     input("\n\n\nPlease press the 'ENTER' button to start the game...")
     while True:
         
         pass
     print(numbers)
-    print("\n".join(res.bull))
-    print("\n".join(res.cow))
+    print("\n".join(BullsCows.bull))
+    print("\n".join(BullsCows.cow))
     
     pass
 
