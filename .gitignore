@@ -1,5 +1,6 @@
 /.venv
-/__pycache__
+__pycache__
+.vscode/launch.json
 LW3/image.png
 2024-09-04.pdf
 2024-09-18.pdf
