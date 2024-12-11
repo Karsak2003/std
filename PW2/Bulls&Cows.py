@@ -1,7 +1,7 @@
 
 #region IMPORTS
 import random
-from res import BullsCows 
+from PW2.resource import s_BullsCows 
 #endregion IMPORTS
 
 def eqaNum(firs:list[int], sect:list[int]) -> tuple:
@@ -20,7 +20,7 @@ def eqaNum(firs:list[int], sect:list[int]) -> tuple:
 
 def main() -> None:
     numbers = [random.randint(1, 10)] + random.sample(range(0, 10), 3)
-    print("\n".join(BullsCows.openName))
+    print("\n".join(s_BullsCows.openName))
     input("\n\n\nPlease press the 'ENTER' button to start the game...")
     print("\033[H\033[J", end="")
     while True:
@@ -37,16 +37,16 @@ def main() -> None:
         n:bool = _t[2]
         del _t
         print("You see the following:")
-        if n: print("\n".join(BullsCows.nothing))
+        if n: print("\n".join(s_BullsCows.nothing))
         else:
-            out_c:list[str] = [item[0] + " " + item[1] for item in  zip(BullsCows.GET(str(c)), BullsCows.cow)]
-            out_b:list[str] = [item[0] + " " + item[1] for item in  zip(BullsCows.GET(str(b)), BullsCows.bull)]
-            out:list[str] = [item[0] + " " + item[1] + " " + item[2] for item in  zip(out_c,BullsCows.GET(" ") , out_b)]
+            out_c:list[str] = [item[0] + " " + item[1] for item in  zip(s_BullsCows.GET(str(c)), s_BullsCows.cow)]
+            out_b:list[str] = [item[0] + " " + item[1] for item in  zip(s_BullsCows.GET(str(b)), s_BullsCows.bull)]
+            out:list[str] = [item[0] + " " + item[1] + " " + item[2] for item in  zip(out_c,s_BullsCows.GET(" ") , out_b)]
             print("\n".join(out))
             del out_c, out_b, out
         if c == 4: 
             print("\033[H\033[J", end="")
-            print("\n".join(BullsCows.GET("!")))
+            print("\n".join(s_BullsCows.GET("!")))
             input("\n\n\nPlease press the 'ENTER' button to continue...")
             break
             
