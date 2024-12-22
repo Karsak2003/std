@@ -26,7 +26,7 @@ def main() -> None:
         try:
             assert tempWord in WORDS
             temp = eqaWord(winWord, tempWord)
-            _t = [(f" {x[0]} ",f"({x[0]})",f"[{x[0]}]")[x[1]] for x in zip(tempWord, temp)]
+            _t = [(f" {x[0]} ",f"\033[33m({x[0]})\033[0m",f"\033[32m[{x[0]}]\033[0m")[x[1]] for x in zip(tempWord, temp)]
             print("|".join(_t))
             if sum(temp) == 2*5: break
             del _t, temp

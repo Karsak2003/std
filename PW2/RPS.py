@@ -9,14 +9,16 @@ import random
 
 
 
-
-
-
-
+RSP:str = "✂️🪨🗞️"
 
 
 def main() -> None:
-    print("✂️🪨🗞️")
+    
+    input("Нажмите 'ENTER' для продолжения...")
+    print("\033[F\033[K")
+    
+    
+    
     
     pass
 
