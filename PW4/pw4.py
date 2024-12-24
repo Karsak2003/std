@@ -1,7 +1,7 @@
 
 #region IMPORT
 from functools import reduce
-from typing import Any
+from typing import Any, Sequence
 import json
 #endregion IMPORT
 
@@ -17,17 +17,20 @@ def display(fun, arg):
     print(f'arg={arg} => fun(arg)={fun(arg)}')
     return fun(arg)
 
-'''
-Используя сначала каррирование, а затем замыкания, объявите функцию
-categorize_countries(), которая возвращает список стран с некоторым
-общим шаблоном (например,  'land', 'ia', 'island', 'stan'), который
-можно менять.
-'''
-
 def categorize_countries(filt:str):
     def f(x):
         return [v for v in x if filt in v]
     return f
+
+def f_l2c(lang:list, countries:list) -> dict:
+    result:dict = dict()
+    for item_lang in lang:
+        temp_:list = []
+        for item_c in countries:
+            if item_lang in item_c["languages"]:
+                temp_.append(item_c["name"])
+        result[item_lang] = temp_
+    return  result
 
 
 def main() -> None:
@@ -39,16 +42,14 @@ def main() -> None:
     
     
     I1 = lambda x: "land" in x
-    I_1 = lambda x: list(filter(I1, x))
-    print(*I_1(countries), sep=", ")
+    I_1 = lambda fun: lambda x: list(filter(fun, x))
+    print(*I_1(I1)(countries), sep=", ")
       
     I2 = lambda x: len(x) <= 6
-    I_2 = lambda x: list(filter(I2, x))
-    print(*I_2(countries)[0:10], "...", sep=", ")  
+    print(*I_1(I2)(countries)[0:10], "...", sep=", ")  
     
     I3 = lambda x: x[0] in "Ee"
-    I_3 = lambda x: list(filter(I3, x))
-    print(*I_3(countries), sep=", ")  
+    print(*I_1(I3)(countries), sep=", ")  
     
     I4 = lambda aggr , x: aggr+", "+x
     I_4 = lambda x: reduce(I4, x)
@@ -58,8 +59,8 @@ def main() -> None:
     
     display(I, countries[0:5])
     display(I_1, countries[0:10])
-    display(I_2, countries[0:10])
-    display(I_3, countries[0:10])
+    display(I_1(I2), countries[0:10])
+    display(I_1(I3), countries[0:10])
     print(display(I_4, ["Finland", "Sweden", "Denmark", "Norway", "Iceland"]), "are the Nordic countries.")
     
     
@@ -71,7 +72,7 @@ def main() -> None:
     можно менять.
     '''
     print(categorize_countries("land")(countries))
-    del countries, I, I1, I_1, I2, I_2, I3, I_3, I4, I_4,
+    del countries, I, I1, I_1, I2, I3, I4, I_4,
     print()
     """
     10. Используя файл countries-data.json, выполните приведенные ниже задания в функциональной парадигме:
@@ -110,16 +111,14 @@ def main() -> None:
     print()
     # Выявить произвольное число (начать с 10) наиболее распространенных языков и где их используют.
     
-    I1c = lambda fun: lambda x: \
-        list(set(reduce(lambda aggr, x1: aggr + x1, list(map(fun, x)))))
+    I1c = lambda reduceFun: lambda fun: lambda x: \
+        list(set(reduce(reduceFun, list(map(fun, x)))))
     
-    lang:list = I1c(I_getLanguages)(countries)
-    temp = {f"{x}":[y["name"] for y in countries if x in y["languages"]] for x in lang}
+    lang:list = I1c(lambda aggr, x1: aggr + x1)(I_getLanguages)(countries)
+    temp = f_l2c(lang, countries)
     lang.sort(key=lambda x: len(temp[x]), reverse=True)
-    
-    I2c = lambda y: lambda x: f"{x} ({len(y[x])}):{", ".join(y[x][0:5])}"
-    
+
+    I2c = lambda y: lambda x: f"{x} ({len(y[x])}):{", ".join(y[x][0:5])}"    
     print(*list(map(I2c(temp), lang[0:10])), sep="\n")
-    
     
 if __name__ == "__main__":main()

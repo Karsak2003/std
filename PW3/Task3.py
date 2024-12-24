@@ -44,24 +44,27 @@ class Weapon():
     
 
 class MeleeWeapon(Weapon):
-    def __init__(self, 
-            Damage = 1, 
-            AttackSpeed = 1, 
-            AttackRange = 1, 
-            CriticalChange = 0.5, 
-            CriticalDamage = 0.5
+    def __init__(self, *,
+            Damage:float         = 1., 
+            AttackSpeed:float    = 1., 
+            AttackRange:float    = 1., 
+            CriticalChange:float = .5, 
+            CriticalDamage:float = .5
         ):
         super().__init__(Damage, AttackSpeed, AttackRange, CriticalChange, CriticalDamage)
     
 class Sword(MeleeWeapon):
     def __init__(self, 
-            Damage = 1, 
-            AttackSpeed = 1, 
-            AttackRange = 1, 
-            CriticalChange = 0.5, 
-            CriticalDamage = 0.5
+            name:str,
+            *,
+            Damage:float         = 1., 
+            AttackSpeed:float    = 1., 
+            AttackRange:float    = 1., 
+            CriticalChange:float = .5, 
+            CriticalDamage:float = .5
         ):
         super().__init__(Damage, AttackSpeed, AttackRange, CriticalChange, CriticalDamage)
+        self.Name:str = name
     
     
 
